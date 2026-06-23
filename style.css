@@ -22,7 +22,7 @@ h1, h2, h3 {
     display: none !important;
 }
 
-/* Background Hearts */
+/* Background Hearts (Falling Down Design) */
 #hearts-container {
     position: fixed;
     top: 0;
@@ -35,15 +35,27 @@ h1, h2, h3 {
 
 .heart {
     position: absolute;
-    bottom: -10vh;
+    top: -10vh; /* Starts just above the top of the screen */
     color: rgba(255, 255, 255, 0.6);
     font-size: 24px;
-    animation: floatUp linear infinite;
+    animation: floatDown linear infinite;
 }
 
-@keyframes floatUp {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+@keyframes floatDown {
+    0% { 
+        transform: translateY(0) rotate(0deg); 
+        opacity: 0; 
+    }
+    10% {
+        opacity: 1; /* Fades in smoothly right as it enters the view */
+    }
+    90% {
+        opacity: 1;
+    }
+    100% { 
+        transform: translateY(115vh) rotate(360deg); /* Falls completely past the bottom edge */
+        opacity: 0; 
+    }
 }
 
 /* Gate Screen */
@@ -98,7 +110,7 @@ h1, h2, h3 {
 #btn-no {
     background-color: #ccc;
     color: #333;
-    position: absolute; /* Allows JS to move it freely */
+    position: absolute; 
     left: 60%;
 }
 
@@ -199,7 +211,6 @@ h1, h2, h3 {
     cursor: pointer;
     box-shadow: 0 10px 20px rgba(255, 75, 43, 0.4);
     transition: all 0.3s ease;
-    font-family: 'Poppins', sans-serif;
 }
 
 #envelope-btn:hover {
