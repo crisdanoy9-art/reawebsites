@@ -1,0 +1,232 @@
+/* General Reset & Typography */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: #4a4a4a;
+}
+
+h1, h2, h3 {
+    font-family: 'Dancing Script', cursive;
+    color: #d81b60;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Background Hearts */
+#hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.heart {
+    position: absolute;
+    bottom: -10vh;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 24px;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+/* Gate Screen */
+#gate-screen {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.gate-box {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+.gate-box h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.button-container {
+    position: relative;
+    height: 60px;
+}
+
+#btn-yes, #btn-no {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#btn-yes {
+    background-color: #ff4b2b;
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
+}
+
+#btn-yes:hover {
+    transform: scale(1.05);
+}
+
+#btn-no {
+    background-color: #ccc;
+    color: #333;
+    position: absolute; /* Allows JS to move it freely */
+    left: 60%;
+}
+
+/* Main Content & Navbar */
+#main-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#navbar {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50px;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+#navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    color: #555;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.nav-btn:hover, .nav-btn.active {
+    background: #ff4b2b;
+    color: white;
+}
+
+/* Page Sections */
+.page-section {
+    text-align: center;
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.title {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* Media Grids (Photos & Videos) */
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.media-card {
+    background: white;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.media-card:hover {
+    transform: translateY(-10px);
+}
+
+.media-card img, .media-card video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Envelope and Letter */
+#envelope-btn {
+    background: #ff4b2b;
+    color: white;
+    font-size: 1.5rem;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(255, 75, 43, 0.4);
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+#envelope-btn:hover {
+    transform: scale(1.05);
+}
+
+.letter-paper {
+    background: #fffdf5;
+    padding: 40px;
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 30px auto;
+    text-align: left;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    border-left: 5px solid #ff4b2b;
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+.letter-paper h3 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .title { font-size: 2.2rem; }
+    #navbar ul { flex-direction: column; align-items: center; gap: 10px; }
+    .nav-btn { width: 100%; }
+}
