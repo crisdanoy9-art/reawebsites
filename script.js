@@ -8,7 +8,7 @@ const mainContent = document.getElementById('main-content');
 btnNo.addEventListener('mouseover', moveNoButton);
 // For touch users (mobile)
 btnNo.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // Prevents clicking it on mobile
+    e.preventDefault(); // Prevents actual clicking on mobile devices
     moveNoButton();
 });
 
@@ -20,8 +20,8 @@ function moveNoButton() {
     const randomX = Math.floor(Math.random() * maxX);
     const randomY = Math.floor(Math.random() * maxY);
 
-    // Apply the new coordinates
-    btnNo.style.position = 'fixed'; // Fixed ensures it stays on screen
+    // Apply the new coordinates dynamically
+    btnNo.style.position = 'fixed'; 
     btnNo.style.left = randomX + 'px';
     btnNo.style.top = randomY + 'px';
 }
@@ -30,7 +30,7 @@ function moveNoButton() {
 btnYes.addEventListener('click', () => {
     gateScreen.classList.add('hidden');
     mainContent.classList.remove('hidden');
-    generateHearts(); // Start background hearts once entered
+    generateHearts(); // Starts the enhanced heart generator
 });
 
 
@@ -64,32 +64,59 @@ const openedLetter = document.getElementById('opened-letter');
 const envelopeContainer = document.getElementById('envelope-container');
 
 envelopeBtn.addEventListener('click', () => {
-    // Hide the button container, show the letter
+    // Hide the button container, show the romantic letter
     envelopeContainer.classList.add('hidden');
     openedLetter.classList.remove('hidden');
 });
 
 
-// --- 5. Generate Floating Hearts Background ---
+// --- 5. Enhanced Floating Hearts Background ---
 function generateHearts() {
     const container = document.getElementById('hearts-container');
     const heartSymbols = ['❤️', '💖', '💕', '💘'];
 
+    // Spawns a new heart every 300ms for a lush, rich background atmosphere
     setInterval(() => {
         const heart = document.createElement('div');
         heart.classList.add('heart');
         
-        // Randomize heart appearance and physics
+        // Pick a random heart emoji
         heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+        // Random horizontal spawning point
         heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = Math.random() * 3 + 4 + 's'; // Between 4s and 7s
-        heart.style.fontSize = Math.random() * 20 + 15 + 'px'; // Between 15px and 35px
+
+        // Mix Logic: Small, Medium, and Big presets
+        const sizeChoice = Math.random();
+        let size, speed, opacity;
+
+        if (sizeChoice < 0.45) { 
+            // 1. SMALL HEARTS (45% chance)
+            size = Math.floor(Math.random() * 8) + 12 + 'px';       // 12px to 20px
+            speed = (Math.random() * 2 + 3).toFixed(1) + 's';       // 3s to 5s (Moves faster in the background)
+            opacity = (Math.random() * 0.3 + 0.4).toFixed(2);       // Subtle, semi-transparent depth
+        } else if (sizeChoice < 0.85) { 
+            // 2. MEDIUM HEARTS (40% chance)
+            size = Math.floor(Math.random() * 12) + 24 + 'px';      // 24px to 36px
+            speed = (Math.random() * 3 + 5).toFixed(1) + 's';       // 5s to 8s (Standard pace)
+            opacity = (Math.random() * 0.3 + 0.6).toFixed(2);       // Slightly clearer
+        } else { 
+            // 3. BIG HEARTS (15% chance)
+            size = Math.floor(Math.random() * 15) + 48 + 'px';      // 48px to 63px
+            speed = (Math.random() * 4 + 8).toFixed(1) + 's';       // 8s to 12s (Drifts past majestically slow)
+            opacity = (Math.random() * 0.2 + 0.8).toFixed(2);       // Solid and bold
+        }
+
+        // Apply styles to the heart element
+        heart.style.fontSize = size;
+        heart.style.animationDuration = speed;
+        heart.style.opacity = opacity;
 
         container.appendChild(heart);
 
-        // Remove the heart from the DOM after animation completes (to prevent lag)
+        // Performance Optimization: Safely removes the heart right after its animation finishes
+        const lifespan = parseFloat(speed) * 1000;
         setTimeout(() => {
             heart.remove();
-        }, 7000); 
-    }, 400); // Spawns a new heart every 400ms
+        }, lifespan); 
+    }, 300); 
 }
