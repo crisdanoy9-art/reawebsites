@@ -3,64 +3,67 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    /* Using a standard monospace font for the 'hacker' look */
+    font-family: 'Courier New', Courier, monospace;
 }
 
 body {
-    background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+    /* Dark background */
+    background-color: #0d0208;
+    background-image: 
+        /* Subtle matrix 'rain' effect using linear gradients */
+        linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: center;
     min-height: 100vh;
     overflow-x: hidden;
-    color: #4a4a4a;
+    color: #00ff41; /* Neo-green text */
+    text-shadow: 0 0 5px #00ff41; /* Text glow */
 }
 
+/* Headers are now sharp and green, not script */
 h1, h2, h3 {
-    font-family: 'Dancing Script', cursive;
-    color: #d81b60;
+    font-family: 'Courier New', Courier, monospace;
+    color: #00ff41;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .hidden {
     display: none !important;
 }
 
-/* Background Hearts (Falling Down Design) */
+/* Background Hearts (Hacker style: static cyan ASCII-like blocks) */
 #hearts-container {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Allows clicking through hearts to buttons beneath */
-    z-index: -1; /* Keeps hearts in the background */
+    top: 10%;
+    right: 10%;
+    width: 200px;
+    height: 160px;
+    pointer-events: none;
+    z-index: -1;
+    color: #00ffff;
+    font-size: 10px;
+    opacity: 0.5;
 }
 
-.heart {
-    position: absolute;
-    top: -15vh; /* Starts above the screen (adjusted for larger sizes) */
-    color: rgba(255, 255, 255, 0.7);
-    animation: floatDown linear infinite;
-    /* Removing initial rotate from base state */
-    transform: rotate(0deg); 
+/* Creating the ASCII heart pattern */
+#hearts-container::before {
+    content: 
+    "  *** *** \n"
+    " ***** ***** \n"
+    "*************\n"
+    " *********** \n"
+    "  ********* \n"
+    "   ******* \n"
+    "    ***** \n"
+    "     *** \n"
+    "      * ";
+    white-space: pre;
 }
 
-/* Updated Animation: Only moving vertically, NO ROTATION */
-@keyframes floatDown {
-    0% { 
-        transform: translateY(0); /* Removed rotate(0deg) */
-        opacity: 0; 
-    }
-    10% {
-        opacity: 1; /* Fade in smoothly */
-    }
-    90% {
-        opacity: 1;
-    }
-    100% { 
-        transform: translateY(130vh); /* Falls past bottom (adjusted for larger sizes) */
-        opacity: 0; /* Fade out */
-    }
-}
-
-/* Gate Screen */
+/* Gate Screen - Centered on page */
 #gate-screen {
     height: 100vh;
     display: flex;
@@ -69,58 +72,74 @@ h1, h2, h3 {
     text-align: center;
     padding: 20px;
     position: relative;
-    z-index: 10; /* Ensures it sits above the background hearts */
+    z-index: 10;
 }
 
+/* Gate Box - Stylized Terminal Window */
 .gate-box {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    max-width: 450px;
+    background: rgba(13, 2, 8, 0.95);
+    padding: 30px;
+    border-radius: 5px;
+    /* Glowing teal border */
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    max-width: 500px;
     width: 100%;
 }
 
 .gate-box h1 {
-    font-size: 2.8rem;
-    margin-bottom: 30px;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+/* Box controls - just visual flair */
+.gate-box::before {
+    content: "■ ■ ■";
+    color: #333;
+    float: left;
+    margin-top: -20px;
 }
 
 .button-container {
     position: relative;
-    height: 70px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* Base button style: dark, sharp corners */
 #btn-yes, #btn-no {
-    padding: 15px 35px;
-    font-size: 1.3rem;
-    border: none;
-    border-radius: 40px;
+    padding: 10px 25px;
+    font-size: 1rem;
+    border: 1px solid transparent;
+    border-radius: 3px;
     cursor: pointer;
     font-weight: 600;
-    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+    transition: all 0.2s;
     position: absolute;
+    text-transform: uppercase;
 }
 
+/* Yes Button - Red and "Execute" styled */
 #btn-yes {
-    background-color: #ff4b2b;
+    background-color: #8b0000; /* Dark red */
     color: white;
-    box-shadow: 0 6px 20px rgba(255, 75, 43, 0.4);
-    left: 20%; /* Initial position */
+    border-color: #ff0000;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    left: 20%;
 }
 
 #btn-yes:hover {
-    transform: scale(1.05);
+    background-color: #b30000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
 }
 
+/* No Button - Gray and "Abort" styled */
 #btn-no {
-    background-color: #ccc;
-    color: #333;
-    left: 60%; /* Initial position, moved by JS later */
-    white-space: nowrap;
+    background-color: #333; /* Dark gray */
+    color: #888;
+    left: 60%;
 }
 
 /* Main Content & Navbar */
@@ -133,12 +152,11 @@ h1, h2, h3 {
 }
 
 #navbar {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 50px;
-    padding: 10px 25px;
+    background: rgba(13, 2, 8, 0.9);
+    border-radius: 5px;
+    padding: 10px;
     margin-bottom: 40px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-    backdrop-filter: blur(5px); /* Adds slight blur behind navbar */
+    border: 1px solid #00ff41;
 }
 
 #navbar ul {
@@ -152,74 +170,42 @@ h1, h2, h3 {
 .nav-btn {
     background: none;
     border: none;
-    font-size: 1.2rem;
-    color: #555;
+    font-size: 1.1rem;
+    color: #00ff41;
     cursor: pointer;
-    padding: 12px 20px;
-    border-radius: 25px;
-    transition: all 0.3s ease;
-    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 3px;
+    transition: all 0.3s;
 }
 
 .nav-btn:hover, .nav-btn.active {
-    background: #ff4b2b;
-    color: white;
-    box-shadow: 0 4px 12px rgba(255, 75, 43, 0.3);
+    background: rgba(0, 255, 65, 0.2);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }
 
 /* Page Sections */
 .page-section {
     text-align: center;
-    animation: fadeIn 0.8s ease;
+    animation: fadeIn 0.5s ease;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .title {
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     margin-bottom: 15px;
 }
 
 .subtitle {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+    color: #888;
     margin-bottom: 40px;
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
-}
-
-/* Media Grids (Photos & Videos) */
-.media-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    padding: 20px 0;
-}
-
-.media-card {
-    background: white;
-    padding: 15px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.media-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-}
-
-.media-card img, .media-card video {
-    width: 100%;
-    height: auto;
-    border-radius: 15px;
-    object-fit: cover;
 }
 
 /* Envelope and Letter */
@@ -231,48 +217,44 @@ h1, h2, h3 {
 }
 
 #envelope-btn {
-    background: #ff4b2b;
-    color: white;
-    font-size: 1.8rem;
-    padding: 25px 50px;
-    border: none;
-    border-radius: 15px;
+    background-color: #0d0208;
+    color: #00ffff;
+    font-size: 1.5rem;
+    padding: 20px 40px;
+    border: 1px solid #00ffff;
+    border-radius: 3px;
     cursor: pointer;
-    box-shadow: 0 12px 25px rgba(255, 75, 43, 0.4);
-    transition: all 0.3s ease;
-    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    transition: all 0.3s;
 }
 
 #envelope-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 15px 30px rgba(255, 75, 43, 0.5);
+    background-color: rgba(0, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
 }
 
 .letter-paper {
-    background: #fffdf5;
-    padding: 50px;
-    border-radius: 10px;
+    background: #0d0208;
+    color: #00ff41;
+    padding: 40px;
+    border-radius: 5px;
     max-width: 700px;
     margin: 40px auto;
     text-align: left;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-    border-left: 8px solid #ff4b2b;
-    font-size: 1.3rem;
-    line-height: 1.9;
-    max-height: 70vh; /* Prevents long letters from creating huge page scroll */
-    overflow-y: auto; /* Adds scrollbar inside the letter */
+    border: 1px solid #00ff41;
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
 .letter-paper h3 {
-    font-size: 2.8rem;
+    font-size: 2rem;
     margin-bottom: 25px;
+    border-bottom: 1px solid #00ff41;
+    padding-bottom: 10px;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .title { font-size: 2.8rem; }
-    #navbar ul { flex-direction: column; align-items: center; }
-    .nav-btn { width: 100%; text-align: center; }
-    .letter-paper { padding: 30px; }
-    .gate-box h1 { font-size: 2.2rem; }
+/* Media Cards need a dark tweak */
+.media-card {
+    background: #1a1a1a;
+    border: 1px solid #333;
 }
