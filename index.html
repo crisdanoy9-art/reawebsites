@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Floating hearts container (JS will fill) -->
+    <!-- Floating hearts container (filled by JS) -->
     <div id="hearts-container"></div>
 
     <!-- Gate Screen -->
@@ -19,8 +19,8 @@
             <h1>💖 My Love</h1>
             <p class="sub-gate">Are you ready for a little surprise?</p>
             <div class="button-container">
-                <button id="btn-yes">Yes</button>
-                <button id="btn-no">No</button>
+                <button id="btn-yes">Yes 💖</button>
+                <button id="btn-no">No 💔</button>
             </div>
         </div>
     </div>
@@ -52,19 +52,66 @@
                     <div class="media-card"><img src="photos/1766920976216.jpg" alt="Us"></div>
                     <div class="media-card"><img src="https://via.placeholder.com/300x400/ffccd5/ff6b81?text=Love+1" alt="Us"></div>
                     <div class="media-card"><img src="https://via.placeholder.com/300x400/ffccd5/ff6b81?text=Love+2" alt="Us"></div>
+                    <!-- Add more photo cards as needed -->
                 </div>
             </section>
 
-            <!-- VIDEOS -->
+            <!-- VIDEOS – Enhanced with many video cards -->
             <section id="videos" class="page-section hidden">
                 <h2 class="title">Moments in Motion</h2>
                 <div class="media-grid">
-                    <div class="media-card">
-                        <video controls>
-                            <source src="#" type="video/lv_7498725537716768053_20250503171508.mp4">
+
+                    <!-- Local MP4 videos (add your own) -->
+                    <div class="media-card video-card">
+                        <video controls poster="thumbnails/video1-poster.jpg">
+                            <source src="video/lv_7498725537716768053_20250503171508.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
+
+                    <div class="media-card video-card">
+                        <video controls poster="thumbnails/video2-poster.jpg">
+                            <source src="videos/video2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <div class="media-card video-card">
+                        <video controls poster="thumbnails/video3-poster.jpg">
+                            <source src="videos/video3.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <div class="media-card video-card">
+                        <video controls poster="thumbnails/video4-poster.jpg">
+                            <source src="videos/video4.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <div class="media-card video-card">
+                        <video controls poster="thumbnails/video5-poster.jpg">
+                            <source src="videos/video5.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <!-- YouTube embed example -->
+                    <div class="media-card video-card">
+                        <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                    style="position:absolute; top:0; left:0; width:100%; height:100%;" 
+                                    frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Vimeo embed example -->
+                    <div class="media-card video-card">
+                        <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+                            <iframe src="https://player.vimeo.com/video/76979871" 
+                                    style="position:absolute; top:0; left:0; width:100%; height:100%;" 
+                                    frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Add as many video cards as you like – just copy the pattern -->
                 </div>
             </section>
 
