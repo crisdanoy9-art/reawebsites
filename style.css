@@ -330,6 +330,8 @@ body {
     font-size: 1.1rem;
     color: #3d2b2b;
     animation: fadeSlide 0.6s ease;
+    max-height: 80vh;       /* ✅ added for scrollable long letters */
+    overflow-y: auto;       /* ✅ added for scrollable long letters */
 }
 
 .letter-paper h3 {
