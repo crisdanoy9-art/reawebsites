@@ -21,6 +21,7 @@ const btnYes = document.getElementById('btn-yes');
 const gateScreen = document.getElementById('gate-screen');
 const mainContent = document.getElementById('main-content');
 
+// Set button texts (already in HTML, but we set again for safety)
 btnNo.innerText = "No 💔";
 btnYes.innerText = "Yes 💖";
 
@@ -34,6 +35,8 @@ function moveNoButton() {
     const margin = 20;
     const maxX = window.innerWidth - btnNo.offsetWidth - margin;
     const maxY = window.innerHeight - btnNo.offsetHeight - margin;
+    // Avoid going out of bounds
+    if (maxX < 0 || maxY < 0) return;
     const randomX = Math.floor(Math.random() * (maxX - margin)) + margin;
     const randomY = Math.floor(Math.random() * (maxY - margin)) + margin;
     btnNo.style.position = 'fixed';
@@ -42,37 +45,41 @@ function moveNoButton() {
     btnNo.style.zIndex = '1000';
 }
 
-// ─── 3. Proceed to Dashboard (Yes button) ───────────────
+// ─── 3. Proceed to Main Content (Yes button) ─────────────
 btnYes.addEventListener('click', () => {
     gateScreen.style.opacity = '0';
     gateScreen.style.visibility = 'hidden';
     setTimeout(() => {
         gateScreen.classList.add('hidden');
         mainContent.classList.remove('hidden');
-        // subtle confetti effect can be added here
     }, 500);
 });
 
 // ─── 4. Navigation ──────────────────────────────────────
 function navigate(targetId) {
+    // Hide all sections
     const sections = document.querySelectorAll('.page-section');
     sections.forEach(section => {
         section.classList.add('hidden');
         section.classList.remove('active');
     });
 
+    // Deactivate all nav buttons
     const navButtons = document.querySelectorAll('.nav-btn');
     navButtons.forEach(btn => {
         btn.classList.remove('active');
     });
 
+    // Show target section and activate its button
     const target = document.getElementById(targetId);
-    target.classList.remove('hidden');
-    target.classList.add('active');
-
+    if (target) {
+        target.classList.remove('hidden');
+        target.classList.add('active');
+    }
     const navBtn = document.getElementById('nav-' + targetId);
     if (navBtn) navBtn.classList.add('active');
 
+    // Scroll to top smoothly
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -91,3 +98,7 @@ envelopeBtn.addEventListener('click', () => {
         openedLetter.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 400);
 });
+
+// ─── 6. (Optional) Video lazy load or additional features ─
+// You can add automatic video poster loading, etc.
+// For now, the videos are statically in HTML.
