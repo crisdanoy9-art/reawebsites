@@ -99,6 +99,12 @@ envelopeBtn.addEventListener('click', () => {
     }, 400);
 });
 
-// ─── 6. (Optional) Video lazy load or additional features ─
+// ─── 6. Footer year ──────────────────────────────────────
+const footerYear = document.getElementById('footer-year');
+if (footerYear) {
+    footerYear.textContent = '· ' + new Date().getFullYear();
+}
+
+// ─── 7. (Optional) Video lazy load or additional features ─
 // You can add automatic video poster loading, etc.
 // For now, the videos are statically in HTML.
