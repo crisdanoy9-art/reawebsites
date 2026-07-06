@@ -374,6 +374,61 @@ body {
     transform: scale(1.12);
 }
 
+.photo-marquee .media-card:hover video,
+.photo-marquee .media-card:hover iframe {
+    transform: scale(1.06);
+}
+
+.photo-marquee .media-card video,
+.photo-marquee .media-card iframe {
+    transition: transform 0.5s ease;
+}
+
+/* Sparkle accent that twinkles in on hover */
+.photo-marquee .media-card::before {
+    content: '✦';
+    position: absolute;
+    top: -10px;
+    right: -8px;
+    font-size: 1.5rem;
+    color: var(--gold);
+    opacity: 0;
+    transform: scale(0.3) rotate(-40deg);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+    z-index: 20;
+    text-shadow: 0 0 12px rgba(212, 175, 55, 0.85);
+}
+
+.photo-marquee .media-card:hover::before {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* Ambient glow pulse so the row feels alive even before you touch it */
+.photo-marquee .media-card {
+    animation: cardGlow 5s ease-in-out infinite;
+}
+
+.photo-marquee .media-card:nth-child(2n) {
+    animation-delay: 1.2s;
+}
+
+.photo-marquee .media-card:nth-child(3n) {
+    animation-delay: 2.4s;
+}
+
+@keyframes cardGlow {
+    0%, 100% { box-shadow: 0 10px 30px rgba(255, 107, 129, 0.15); }
+    50%      { box-shadow: 0 12px 34px rgba(212, 175, 55, 0.4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .photo-marquee .media-card {
+        animation: none;
+    }
+}
+
 @media (max-width: 600px) {
     .photo-marquee .media-card { width: 160px; max-width: 160px; }
     .photo-marquee .media-card img { height: 190px; }
