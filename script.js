@@ -130,6 +130,26 @@ function initTilt() {
 }
 initTilt();
 
-// ─── 8. (Optional) Video lazy load or additional features ─
+// ─── 8. Music player – vinyl spin sync ───────────────────
+const songAudio = document.getElementById('song-audio');
+const vinyl = document.getElementById('vinyl');
+const tonearm = document.getElementById('tonearm');
+
+if (songAudio && vinyl) {
+    songAudio.addEventListener('play', () => {
+        vinyl.classList.add('spinning');
+        if (tonearm) tonearm.classList.add('active');
+    });
+    songAudio.addEventListener('pause', () => {
+        vinyl.classList.remove('spinning');
+        if (tonearm) tonearm.classList.remove('active');
+    });
+    songAudio.addEventListener('ended', () => {
+        vinyl.classList.remove('spinning');
+        if (tonearm) tonearm.classList.remove('active');
+    });
+}
+
+// ─── 9. (Optional) Video lazy load or additional features ─
 // You can add automatic video poster loading, etc.
 // For now, the videos are statically in HTML.
