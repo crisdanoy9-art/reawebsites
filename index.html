@@ -86,59 +86,103 @@
             <!-- VIDEOS – Enhanced with many video cards -->
             <section id="videos" class="page-section hidden">
                 <h2 class="title">Moments in Motion</h2>
-                <div class="media-grid">
+                <p class="subtitle">Hover a row to pause it and press play. 🎬</p>
 
-                    <!-- Local MP4 videos (add your own) -->
-                    <div class="media-card video-card">
-                        <video controls poster="thumbnails/video1-poster.jpg">
-                            <source src="video/lv_7498725537716768053_20250503171508.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-
-                    <div class="media-card video-card">
-                        <video controls poster="thumbnails/video2-poster.jpg">
-                            <source src="video/lv_7471523714769767733_20250406155139.mp4" type="video/mp4">
-                        </video>
-                    </div>
-
-                    <div class="media-card video-card">
-                        <video controls poster="thumbnails/video3-poster.jpg">
-                            <source src="videos/video3.mp4" type="video/mp4">
-                        </video>
-                    </div>
-
-                    <div class="media-card video-card">
-                        <video controls poster="thumbnails/video4-poster.jpg">
-                            <source src="videos/video4.mp4" type="video/mp4">
-                        </video>
-                    </div>
-
-                    <div class="media-card video-card">
-                        <video controls poster="thumbnails/video5-poster.jpg">
-                            <source src="videos/video5.mp4" type="video/mp4">
-                        </video>
-                    </div>
-
-                    <!-- YouTube embed example -->
-                    <div class="media-card video-card">
-                        <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
-                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                                    style="position:absolute; top:0; left:0; width:100%; height:100%;" 
-                                    frameborder="0" allowfullscreen></iframe>
+                <div class="photo-marquee">
+                    <div class="photo-row row-ltr">
+                        <div class="photo-track">
+                            <!-- set 1 -->
+                            <div class="media-card video-card tilt-a">
+                                <video controls poster="thumbnails/video1-poster.jpg">
+                                    <source src="video/lv_7498725537716768053_20250503171508.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="media-card video-card tilt-b">
+                                <video controls poster="thumbnails/video2-poster.jpg">
+                                    <source src="video/lv_7471523714769767733_20250406155139.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="media-card video-card tilt-a">
+                                <video controls poster="thumbnails/video3-poster.jpg">
+                                    <source src="videos/video3.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="media-card video-card tilt-b">
+                                <video controls poster="thumbnails/video4-poster.jpg">
+                                    <source src="videos/video4.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <!-- duplicate set for a seamless loop -->
+                            <div class="media-card video-card tilt-a">
+                                <video controls poster="thumbnails/video1-poster.jpg">
+                                    <source src="video/lv_7498725537716768053_20250503171508.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="media-card video-card tilt-b">
+                                <video controls poster="thumbnails/video2-poster.jpg">
+                                    <source src="video/lv_7471523714769767733_20250406155139.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="media-card video-card tilt-a">
+                                <video controls poster="thumbnails/video3-poster.jpg">
+                                    <source src="videos/video3.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="media-card video-card tilt-b">
+                                <video controls poster="thumbnails/video4-poster.jpg">
+                                    <source src="videos/video4.mp4" type="video/mp4">
+                                </video>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Vimeo embed example -->
-                    <div class="media-card video-card">
-                        <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
-                            <iframe src="https://player.vimeo.com/video/76979871" 
-                                    style="position:absolute; top:0; left:0; width:100%; height:100%;" 
-                                    frameborder="0" allowfullscreen></iframe>
+                    <div class="photo-row row-rtl">
+                        <div class="photo-track">
+                            <!-- reversed order for variety -->
+                            <div class="media-card video-card tilt-b">
+                                <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+                                    <iframe src="https://player.vimeo.com/video/76979871"
+                                            style="position:absolute; top:0; left:0; width:100%; height:100%;"
+                                            frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div class="media-card video-card tilt-a">
+                                <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+                                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                            style="position:absolute; top:0; left:0; width:100%; height:100%;"
+                                            frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div class="media-card video-card tilt-b">
+                                <video controls poster="thumbnails/video5-poster.jpg">
+                                    <source src="videos/video5.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <!-- duplicate set for a seamless loop -->
+                            <div class="media-card video-card tilt-b">
+                                <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+                                    <iframe src="https://player.vimeo.com/video/76979871"
+                                            style="position:absolute; top:0; left:0; width:100%; height:100%;"
+                                            frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div class="media-card video-card tilt-a">
+                                <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+                                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                            style="position:absolute; top:0; left:0; width:100%; height:100%;"
+                                            frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div class="media-card video-card tilt-b">
+                                <video controls poster="thumbnails/video5-poster.jpg">
+                                    <source src="videos/video5.mp4" type="video/mp4">
+                                </video>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Add as many video cards as you like – just copy the pattern -->
+                    <!-- Add more video cards above (in BOTH rows' duplicate spots, kept in sync) as you add more clips -->
                 </div>
             </section>
 
