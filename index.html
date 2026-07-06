@@ -32,6 +32,7 @@
                 <li><button onclick="navigate('home')" class="nav-btn active" id="nav-home"><i class="fas fa-heart"></i> <span>Home</span></button></li>
                 <li><button onclick="navigate('photos')" class="nav-btn" id="nav-photos"><i class="fas fa-images"></i> <span>Photos</span></button></li>
                 <li><button onclick="navigate('videos')" class="nav-btn" id="nav-videos"><i class="fas fa-video"></i> <span>Videos</span></button></li>
+                <li><button onclick="navigate('music')" class="nav-btn" id="nav-music"><i class="fas fa-music"></i> <span>Our Song</span></button></li>
                 <li><button onclick="navigate('letter')" class="nav-btn" id="nav-letter"><i class="fas fa-envelope"></i> <span>Love Letter</span></button></li>
             </ul>
         </nav>
@@ -183,6 +184,42 @@
                         </div>
                     </div>
                     <!-- Add more video cards above (in BOTH rows' duplicate spots, kept in sync) as you add more clips -->
+                </div>
+            </section>
+
+            <!-- MUSIC -->
+            <section id="music" class="page-section hidden">
+                <h2 class="title">Our Song</h2>
+                <p class="subtitle">The one song that will always sound like you. 🎶</p>
+
+                <div class="music-card">
+                    <div class="vinyl-wrap">
+                        <div class="vinyl" id="vinyl">
+                            <div class="vinyl-center"><i class="fas fa-heart"></i></div>
+                        </div>
+                        <div class="tonearm" id="tonearm"></div>
+                    </div>
+
+                    <div class="song-info">
+                        <span class="song-eyebrow">Now Playing</span>
+                        <h3 id="song-title">Write Your Song Title Here</h3>
+                        <p id="song-artist">Artist Name</p>
+
+                        <audio id="song-audio" controls>
+                            <source src="music/our-song.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <p class="song-hint">Replace <code>music/our-song.mp3</code> with your song file, or swap the whole player for a Spotify/YouTube embed.</p>
+                    </div>
+                </div>
+
+                <div class="song-meaning">
+                    <h4><i class="fas fa-quote-left"></i> Why This Song</h4>
+                    <p>
+                        This is the song that was playing the first time I realized how much you meant to me.
+                        Every time it comes on, I'm right back in that moment — replace this with your own story:
+                        where you were, what you were doing, and why this melody will always belong to us. 💕
+                    </p>
                 </div>
             </section>
 
