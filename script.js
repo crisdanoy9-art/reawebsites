@@ -105,6 +105,31 @@ if (footerYear) {
     footerYear.textContent = '· ' + new Date().getFullYear();
 }
 
-// ─── 7. (Optional) Video lazy load or additional features ─
+// ─── 7. Interactive cursor tilt on photo/video cards ─────
+function initTilt() {
+    const cards = document.querySelectorAll('.photo-marquee .media-card');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+            card.style.transform =
+                `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.06)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
+    });
+}
+initTilt();
+
+// ─── 8. (Optional) Video lazy load or additional features ─
 // You can add automatic video poster loading, etc.
 // For now, the videos are statically in HTML.
