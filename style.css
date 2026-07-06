@@ -526,6 +526,173 @@ body {
     height: 100%;
 }
 
+/* ── Music / Our Song ── */
+.music-card {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 28px;
+    padding: 36px 42px;
+    max-width: 720px;
+    margin: 0 auto 32px;
+    box-shadow: 0 18px 46px rgba(255, 107, 129, 0.2);
+}
+
+.vinyl-wrap {
+    position: relative;
+    flex: 0 0 auto;
+    width: 150px;
+    height: 150px;
+}
+
+.vinyl {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at center, var(--plum) 0 8%, #1a1a1a 9% 11%,
+        #2b2b2b 12% 20%, #1a1a1a 21% 23%, #2b2b2b 24% 32%,
+        #1a1a1a 33% 35%, #2b2b2b 36% 44%, #1a1a1a 45% 47%, #2b2b2b 48% 100%);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+    animation: spinVinyl 3.2s linear infinite;
+    animation-play-state: paused;
+}
+
+.vinyl.spinning {
+    animation-play-state: running;
+}
+
+@keyframes spinVinyl {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.vinyl-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 46px;
+    height: 46px;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, var(--rose), var(--crimson));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1rem;
+    box-shadow: 0 0 0 3px var(--cream);
+}
+
+.tonearm {
+    position: absolute;
+    top: -8px;
+    right: -18px;
+    width: 8px;
+    height: 70px;
+    background: linear-gradient(180deg, #c9c9c9, #8a8a8a);
+    border-radius: 4px;
+    transform-origin: top center;
+    transform: rotate(-25deg);
+    transition: transform 0.4s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.tonearm.active {
+    transform: rotate(-5deg);
+}
+
+.song-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.song-eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.song-info h3 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    color: var(--rose-deep);
+    font-weight: 400;
+    margin-bottom: 2px;
+}
+
+.song-info p#song-artist {
+    color: #8a5a5a;
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+}
+
+.song-info audio {
+    width: 100%;
+    accent-color: var(--rose-deep);
+    border-radius: 40px;
+}
+
+.song-hint {
+    font-size: 0.78rem;
+    color: #b58a8a;
+    margin-top: 10px;
+    font-weight: 300;
+}
+
+.song-hint code {
+    background: rgba(212, 175, 55, 0.15);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+}
+
+.song-meaning {
+    max-width: 640px;
+    margin: 0 auto;
+    background: var(--cream);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 18px;
+    padding: 30px 36px;
+    box-shadow: 0 14px 36px rgba(255, 107, 129, 0.15);
+}
+
+.song-meaning h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--rose-deep);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.song-meaning p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: var(--plum);
+}
+
+@media (max-width: 600px) {
+    .music-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 24px;
+    }
+    .tonearm { display: none; }
+    .song-meaning { padding: 24px 22px; }
+}
+
 /* ── Envelope & Letter ── */
 .envelope-container {
     display: flex;
