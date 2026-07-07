@@ -72,9 +72,86 @@ body {
     }
 }
 
+.petal-float {
+    position: absolute;
+    top: -10vh;
+    opacity: 0.75;
+    animation: fallPetal linear infinite;
+    filter: drop-shadow(0 0 5px rgba(214, 51, 108, 0.25));
+}
+
+@keyframes fallPetal {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    50% {
+        transform: translate(var(--sway), 55vh) rotate(180deg);
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(calc(var(--sway) * -1), 115vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
 /* ── Hidden Utility ── */
 .hidden {
     display: none !important;
+}
+
+/* ── Rose corner ornaments (add class="ornate" to any card) ── */
+.ornate {
+    position: relative;
+}
+
+.ornate::before,
+.ornate::after {
+    content: '🌹';
+    position: absolute;
+    font-size: 1.6rem;
+    opacity: 0.55;
+    pointer-events: none;
+    animation: roseSway 4.5s ease-in-out infinite;
+    filter: drop-shadow(0 2px 6px rgba(214, 51, 108, 0.25));
+    z-index: 1;
+}
+
+.ornate::before {
+    top: -14px;
+    left: -14px;
+    transform: rotate(-25deg);
+}
+
+.ornate::after {
+    bottom: -14px;
+    right: -14px;
+    transform: rotate(155deg);
+    animation-delay: 1.2s;
+}
+
+@keyframes roseSway {
+    0%, 100% { transform: rotate(-25deg) translateY(0); }
+    50%      { transform: rotate(-15deg) translateY(-4px); }
+}
+
+.ornate::after {
+    animation-name: roseSwayReverse;
+}
+
+@keyframes roseSwayReverse {
+    0%, 100% { transform: rotate(155deg) translateY(0); }
+    50%      { transform: rotate(165deg) translateY(4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ornate::before, .ornate::after { animation: none; }
+    .petal-float, .heart-float { animation: none; opacity: 0; }
 }
 
 /* ── Gate Screen ── */
@@ -102,15 +179,8 @@ body {
     width: 100%;
     text-align: center;
     border: 1px solid rgba(212, 175, 55, 0.35);
-}
-
-.gate-box::before {
-    content: '';
-    position: absolute;
-    inset: 10px;
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    border-radius: 24px;
-    pointer-events: none;
+    outline: 1px solid rgba(212, 175, 55, 0.4);
+    outline-offset: -10px;
 }
 
 .gate-box h1 {
@@ -286,12 +356,13 @@ body {
 }
 
 .title::after {
-    content: '❀';
+    content: '🌹 ❀ 🌹';
     display: block;
     font-size: 1rem;
     color: var(--gold);
     margin-top: 6px;
-    -webkit-text-fill-color: var(--gold);
+    -webkit-text-fill-color: initial;
+    letter-spacing: 4px;
 }
 
 .subtitle {
@@ -747,6 +818,8 @@ body {
     margin: 30px auto;
     box-shadow: 0 18px 50px rgba(255, 107, 129, 0.2);
     border: 1px solid rgba(212, 175, 55, 0.4);
+    outline: 1px solid rgba(212, 175, 55, 0.35);
+    outline-offset: -12px;
     text-align: left;
     line-height: 1.9;
     font-family: 'Cormorant Garamond', serif;
@@ -755,15 +828,6 @@ body {
     animation: fadeSlide 0.6s ease;
     max-height: 80vh;
     overflow-y: auto;
-}
-
-.letter-paper::before {
-    content: '';
-    position: absolute;
-    inset: 12px;
-    border: 1px solid rgba(212, 175, 55, 0.35);
-    border-radius: 12px;
-    pointer-events: none;
 }
 
 .letter-paper h3 {
