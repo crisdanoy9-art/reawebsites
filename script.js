@@ -1,7 +1,7 @@
 // ─── 1. Floating Hearts Generator ────────────────────────
 function createHearts() {
     const container = document.getElementById('hearts-container');
-    const symbols = ['❤️', '🌸', '✨', '💕', '🌺', '💖', '🌷'];
+    const symbols = ['❤️', '🌸', '✨', '💕', '🌺', '💖', '🌷', '🌹'];
     for (let i = 0; i < 40; i++) {
         const heart = document.createElement('div');
         heart.className = 'heart-float';
@@ -14,6 +14,24 @@ function createHearts() {
     }
 }
 createHearts();
+
+// ─── 1b. Drifting Rose Petals (falls from top, sways side to side) ──
+function createPetals() {
+    const container = document.getElementById('hearts-container');
+    const petals = ['🌹', '🥀', '🌸'];
+    for (let i = 0; i < 18; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal-float';
+        petal.textContent = petals[Math.floor(Math.random() * petals.length)];
+        petal.style.left = Math.random() * 100 + '%';
+        petal.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
+        petal.style.animationDuration = (Math.random() * 10 + 14) + 's';
+        petal.style.animationDelay = (Math.random() * 18) + 's';
+        petal.style.setProperty('--sway', (Math.random() * 80 - 40) + 'px');
+        container.appendChild(petal);
+    }
+}
+createPetals();
 
 // ─── 2. Running "No" Button (Romantic version) ──────────
 const btnNo = document.getElementById('btn-no');
