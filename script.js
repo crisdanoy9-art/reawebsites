@@ -1,3 +1,11 @@
+// ─── 0. Preloader ─────────────────────────────────────────
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        setTimeout(() => preloader.classList.add('loaded'), 400);
+    }
+});
+
 // ─── 1. Floating Hearts Generator ────────────────────────
 function createHearts() {
     const container = document.getElementById('hearts-container');
@@ -237,3 +245,90 @@ if (songAudio && vinyl) {
 // ─── 9. (Optional) Video lazy load or additional features ─
 // You can add automatic video poster loading, etc.
 // For now, the videos are statically in HTML.
+
+// ─── 10. Live "Together Since" Love Counter ──────────────
+// Edit the date below (YYYY, MonthIndex[0-11], Day) to match your story.
+const togetherSinceDate = new Date(2024, 2, 14); // March 14, 2024
+
+function updateLoveCounter() {
+    const daysEl = document.getElementById('count-days');
+    if (!daysEl) return;
+    const now = new Date();
+    let diff = now - togetherSinceDate;
+    if (diff < 0) diff = 0;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const mins = Math.floor((diff / (1000 * 60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+
+    daysEl.textContent = days;
+    document.getElementById('count-hours').textContent = hours;
+    document.getElementById('count-mins').textContent = mins;
+    document.getElementById('count-secs').textContent = secs;
+
+    const sinceLabel = document.getElementById('together-since');
+    if (sinceLabel) {
+        sinceLabel.textContent = togetherSinceDate.toLocaleDateString(undefined, {
+            year: 'numeric', month: 'long', day: 'numeric'
+        });
+    }
+}
+updateLoveCounter();
+setInterval(updateLoveCounter, 1000);
+
+// ─── 11. Typewriter effect for the Home subtitle ─────────
+function typewriteHomeSubtitle() {
+    const subtitle = document.getElementById('home-subtitle');
+    if (!subtitle || subtitle.dataset.typed === 'true') return;
+    const fullText = subtitle.getAttribute('data-full-text') || '';
+    subtitle.textContent = '';
+    subtitle.dataset.typed = 'true';
+
+    if (prefersReducedMotionQuery.matches) {
+        subtitle.textContent = fullText;
+        return;
+    }
+
+    let i = 0;
+    function typeChar() {
+        if (i <= fullText.length) {
+            subtitle.textContent = fullText.slice(0, i);
+            i++;
+            setTimeout(typeChar, 28);
+        }
+    }
+    typeChar();
+}
+typewriteHomeSubtitle();
+
+// ─── 12. Floating Love Note – random surprise message ────
+const loveNotes = [
+    "You are the best part of my every single day. 💕",
+    "I fall for you a little more with every sunrise. 🌅",
+    "Home isn't a place, it's wherever you are. 🏡",
+    "Your smile is still my favorite thing in this world. ✨",
+    "I don't need a reason to love you — but I have a thousand. 🌹",
+    "Thank you for choosing me, every day, again and again. 💖",
+    "Even the quiet, ordinary moments are extraordinary with you. 🌸",
+    "You make forever sound like a promise I can't wait to keep. ♾️"
+];
+
+const loveNoteBtn = document.getElementById('love-note-btn');
+const loveNoteModal = document.getElementById('love-note-modal');
+const loveNoteText = document.getElementById('love-note-text');
+const loveNoteClose = document.getElementById('love-note-close');
+
+if (loveNoteBtn && loveNoteModal && loveNoteText) {
+    loveNoteBtn.addEventListener('click', () => {
+        const note = loveNotes[Math.floor(Math.random() * loveNotes.length)];
+        loveNoteText.textContent = note;
+        loveNoteModal.classList.remove('hidden');
+    });
+    loveNoteClose.addEventListener('click', () => {
+        loveNoteModal.classList.add('hidden');
+    });
+    loveNoteModal.addEventListener('click', (e) => {
+        if (e.target === loveNoteModal) loveNoteModal.classList.add('hidden');
+    });
+}
