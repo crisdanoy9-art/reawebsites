@@ -181,6 +181,9 @@ envelopeBtn.addEventListener('click', () => {
     spawnRipple(cx, cy);
     burstConfetti(cx, cy, 20);
 
+    const waxSeal = document.getElementById('wax-seal');
+    if (waxSeal) waxSeal.classList.add('cracked');
+
     envelopeContainer.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
     envelopeContainer.style.opacity = '0';
     envelopeContainer.style.transform = 'scale(0.9)';
@@ -188,6 +191,7 @@ envelopeBtn.addEventListener('click', () => {
         envelopeContainer.classList.add('hidden');
         openedLetter.classList.remove('hidden');
         openedLetter.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        revealLetterParagraphs();
     }, 400);
 });
 
@@ -330,5 +334,17 @@ if (loveNoteBtn && loveNoteModal && loveNoteText) {
     });
     loveNoteModal.addEventListener('click', (e) => {
         if (e.target === loveNoteModal) loveNoteModal.classList.add('hidden');
+    });
+}
+
+// ─── 13. Staggered reveal for the love letter paragraphs ─
+function revealLetterParagraphs() {
+    const paragraphs = document.querySelectorAll('#opened-letter p, #opened-letter h3');
+    if (prefersReducedMotionQuery.matches) {
+        paragraphs.forEach(p => p.classList.add('revealed'));
+        return;
+    }
+    paragraphs.forEach((p, index) => {
+        setTimeout(() => p.classList.add('revealed'), index * 220);
     });
 }
