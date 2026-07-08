@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-heart"><i class="fas fa-heart"></i></div>
+        <p>Loading our story...</p>
+    </div>
+
     <!-- Floating hearts container (filled by JS) -->
     <div id="hearts-container"></div>
 
@@ -41,7 +47,48 @@
             <!-- HOME -->
             <section id="home" class="page-section active">
                 <h2 class="title">Welcome, My Love</h2>
-                <p class="subtitle">Every moment with you is a treasure. I made this space to celebrate our beautiful journey. 💕</p>
+                <p class="subtitle" id="home-subtitle" data-full-text="Every moment with you is a treasure. I made this space to celebrate our beautiful journey. 💕"></p>
+
+                <!-- Love Counter -->
+                <div class="love-counter ornate" id="love-counter">
+                    <p class="counter-label">Together since <span id="together-since">March 14, 2024</span></p>
+                    <div class="counter-grid">
+                        <div class="counter-item"><span id="count-days">0</span><label>Days</label></div>
+                        <div class="counter-item"><span id="count-hours">0</span><label>Hours</label></div>
+                        <div class="counter-item"><span id="count-mins">0</span><label>Minutes</label></div>
+                        <div class="counter-item"><span id="count-secs">0</span><label>Seconds</label></div>
+                    </div>
+                    <p class="counter-hint">...and counting every heartbeat since. Edit <code>together-since</code>'s date in script.js to match your story.</p>
+                </div>
+
+                <!-- Reasons I Love You – flip cards -->
+                <h3 class="reasons-heading">A Few Reasons Why <i class="fas fa-heart"></i></h3>
+                <div class="reasons-grid">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front"><i class="fas fa-laugh-beam"></i></div>
+                            <div class="flip-card-back"><p>Your laugh is my favorite sound in the whole world.</p></div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front"><i class="fas fa-hand-holding-heart"></i></div>
+                            <div class="flip-card-back"><p>You care for everyone around you so gently, it inspires me daily.</p></div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front"><i class="fas fa-star"></i></div>
+                            <div class="flip-card-back"><p>You believe in me even on the days I don't believe in myself.</p></div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front"><i class="fas fa-couch"></i></div>
+                            <div class="flip-card-back"><p>Even the most ordinary, quiet moments feel special with you around.</p></div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <!-- PHOTOS -->
@@ -278,6 +325,19 @@
             <p class="footer-text">Made with endless love, just for you.</p>
             <p class="footer-signature">Cris Lawrence &amp; Rea Jean <span id="footer-year"></span></p>
         </footer>
+    </div>
+
+    <!-- Floating Love Note Surprise -->
+    <button id="love-note-btn" title="Tap for a little love note">
+        <i class="fas fa-feather-alt"></i>
+    </button>
+
+    <div id="love-note-modal" class="hidden">
+        <div class="love-note-card ornate">
+            <i class="fas fa-quote-left"></i>
+            <p id="love-note-text"></p>
+            <button id="love-note-close">Close <i class="fas fa-heart"></i></button>
+        </div>
     </div>
 
     <script src="script.js"></script>
