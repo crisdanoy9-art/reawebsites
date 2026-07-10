@@ -252,7 +252,7 @@ if (songAudio && vinyl) {
 
 // ─── 10. Live "Together Since" Love Counter ──────────────
 // Edit the date below (YYYY, MonthIndex[0-11], Day) to match your story.
-const togetherSinceDate = new Date(2024, 2, 14); // March 14, 2024
+const togetherSinceDate = new Date(2024, 10, 11); // March 14, 2024
 
 function updateLoveCounter() {
     const daysEl = document.getElementById('count-days');
