@@ -38,6 +38,7 @@
     <!-- Main Content -->
     <div id="main-content" class="hidden">
         <nav id="navbar">
+            <div class="nav-indicator" id="nav-indicator"></div>
             <ul>
                 <li><button onclick="navigate('home')" class="nav-btn active" id="nav-home"><i class="fas fa-heart"></i> <span>Home</span></button></li>
                 <li><button onclick="navigate('photos')" class="nav-btn" id="nav-photos"><i class="fas fa-images"></i> <span>Photos</span></button></li>
@@ -325,7 +326,7 @@
         </main>
 
         <footer id="site-footer">
-            <div class="footer-hearts">🌹 ❀ ❤ ❀ 🌹</div>
+            <div class="footer-hearts" id="footer-hearts">🌹 ❀ ❤ ❀ 🌹</div>
             <p class="footer-text">Made with endless love, just for you.</p>
             <p class="footer-signature">Cris Lawrence &amp; Rea Jean <span id="footer-year"></span></p>
         </footer>
@@ -342,6 +343,14 @@
             <p id="love-note-text"></p>
             <button id="love-note-close">Close <i class="fas fa-heart"></i></button>
         </div>
+    </div>
+
+    <!-- Photo Lightbox -->
+    <div id="lightbox" class="hidden">
+        <button id="lightbox-close" aria-label="Close"><i class="fas fa-times"></i></button>
+        <button id="lightbox-prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+        <img id="lightbox-img" src="" alt="Us">
+        <button id="lightbox-next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
     </div>
 
     <script src="script.js"></script>
