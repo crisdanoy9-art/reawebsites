@@ -73,6 +73,92 @@ html {
     background: var(--rose-deep);
 }
 
+/* ── Photo Lightbox ── */
+#lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(74, 25, 66, 0.85);
+    backdrop-filter: blur(8px);
+    padding: 30px;
+}
+
+#lightbox.hidden {
+    display: none;
+}
+
+#lightbox-img {
+    max-width: min(90vw, 720px);
+    max-height: 80vh;
+    border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    border: 3px solid var(--gold);
+    animation: fadeSlide 0.35s ease;
+    object-fit: contain;
+}
+
+#lightbox-close,
+#lightbox-prev,
+#lightbox-next {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, background 0.25s ease;
+}
+
+#lightbox-close:hover,
+#lightbox-prev:hover,
+#lightbox-next:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.08);
+}
+
+#lightbox-close {
+    top: 24px;
+    right: 24px;
+}
+
+#lightbox-prev {
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#lightbox-next {
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#lightbox-prev:hover,
+#lightbox-next:hover {
+    transform: translateY(-50%) scale(1.08);
+}
+
+.photo-marquee .media-card img {
+    cursor: zoom-in;
+}
+
+@media (max-width: 600px) {
+    #lightbox-prev, #lightbox-next, #lightbox-close {
+        width: 40px;
+        height: 40px;
+        font-size: 0.95rem;
+    }
+}
+
 /* ── Preloader ── */
 #preloader {
     position: fixed;
@@ -462,6 +548,16 @@ html {
     position: sticky;
     top: 16px;
     z-index: 50;
+}
+
+.nav-indicator {
+    position: absolute;
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--rose), var(--gold));
+    box-shadow: 0 0 10px rgba(255, 107, 129, 0.7);
+    transition: transform 0.35s cubic-bezier(0.4, 0.2, 0.2, 1), width 0.35s ease, top 0.35s ease;
+    pointer-events: none;
 }
 
 #navbar ul {
@@ -1367,6 +1463,13 @@ html {
     color: var(--rose);
     margin-bottom: 8px;
     letter-spacing: 6px;
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+.footer-hearts:hover {
+    transform: scale(1.15);
 }
 
 .footer-text {
