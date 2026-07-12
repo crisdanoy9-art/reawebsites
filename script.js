@@ -95,6 +95,24 @@ if (heartsContainerEl && !prefersReducedMotionQuery.matches) {
     });
 }
 
+// ─── 1d. Gate screen sparkles ─────────────────────────────
+function createGateSparkles() {
+    const container = document.getElementById('gate-sparkles');
+    if (!container || prefersReducedMotionQuery.matches) return;
+    const symbols = ['✦', '✧', '⋆'];
+    for (let i = 0; i < 20; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle-dot';
+        sparkle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.top = Math.random() * 100 + '%';
+        sparkle.style.animationDelay = (Math.random() * 2.6) + 's';
+        sparkle.style.fontSize = (Math.random() * 0.8 + 0.6) + 'rem';
+        container.appendChild(sparkle);
+    }
+}
+createGateSparkles();
+
 // ─── 2. Running "No" Button (Romantic version) ──────────
 const btnNo = document.getElementById('btn-no');
 const btnYes = document.getElementById('btn-yes');
@@ -252,7 +270,7 @@ if (songAudio && vinyl) {
 
 // ─── 10. Live "Together Since" Love Counter ──────────────
 // Edit the date below (YYYY, MonthIndex[0-11], Day) to match your story.
-const togetherSinceDate = new Date(2024, 10, 11); // March 14, 2024
+const togetherSinceDate = new Date(2024, 2, 14); // March 14, 2024
 
 function updateLoveCounter() {
     const daysEl = document.getElementById('count-days');
