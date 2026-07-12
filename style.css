@@ -35,12 +35,42 @@ html {
 body {
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
-    background: linear-gradient(160deg, #fff0f4 0%, #fce4ec 45%, #f8bbd0 100%);
+    background:
+        radial-gradient(rgba(255, 107, 129, 0.07) 2px, transparent 2px),
+        linear-gradient(160deg, #fff0f4 0%, #fce4ec 45%, #f8bbd0 100%);
+    background-size: 34px 34px, 100% 100%;
     background-attachment: fixed;
     overflow-x: hidden;
     color: var(--ink);
     display: flex;
     flex-direction: column;
+}
+
+::selection {
+    background: var(--rose);
+    color: #fff;
+}
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--rose) rgba(255, 228, 236, 0.4);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 228, 236, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--rose), var(--crimson));
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--rose-deep);
 }
 
 /* ── Preloader ── */
@@ -270,6 +300,67 @@ body {
     border: 1px solid rgba(212, 175, 55, 0.35);
     outline: 1px solid rgba(212, 175, 55, 0.4);
     outline-offset: -10px;
+    animation: gateEntrance 0.9s cubic-bezier(0.22, 1, 0.36, 1) both, gateGlow 4s ease-in-out 0.9s infinite;
+}
+
+@keyframes gateEntrance {
+    0%   { opacity: 0; transform: scale(0.85) translateY(30px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes gateGlow {
+    0%, 100% { box-shadow: 0 20px 60px var(--shadow-rose); }
+    50%      { box-shadow: 0 20px 70px rgba(212, 175, 55, 0.45); }
+}
+
+.gate-monogram {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    color: var(--gold);
+    letter-spacing: 3px;
+    margin-bottom: 6px;
+}
+
+.gate-monogram span {
+    color: var(--rose-deep);
+    font-size: 1rem;
+    margin: 0 2px;
+}
+
+.gate-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--rose-deep);
+    font-weight: 600;
+    margin-bottom: 10px;
+    opacity: 0.85;
+}
+
+#gate-sparkles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.sparkle-dot {
+    position: absolute;
+    color: var(--gold);
+    font-size: 0.9rem;
+    opacity: 0;
+    animation: sparkleTwinkle 2.6s ease-in-out infinite;
+}
+
+@keyframes sparkleTwinkle {
+    0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+    50%      { opacity: 0.9; transform: scale(1) rotate(90deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gate-box { animation: none; }
+    .sparkle-dot { animation: none; opacity: 0; }
 }
 
 .gate-box h1 {
