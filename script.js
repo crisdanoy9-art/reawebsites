@@ -160,6 +160,14 @@ btnYes.addEventListener('click', () => {
 });
 
 // ─── 4. Navigation ──────────────────────────────────────
+function updateNavIndicator(activeBtn) {
+    const indicator = document.getElementById('nav-indicator');
+    if (!indicator || !activeBtn) return;
+    indicator.style.width = activeBtn.offsetWidth + 'px';
+    indicator.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+    indicator.style.top = (activeBtn.offsetTop + activeBtn.offsetHeight - 3) + 'px';
+}
+
 function navigate(targetId) {
     // Hide all sections
     const sections = document.querySelectorAll('.page-section');
@@ -181,11 +189,24 @@ function navigate(targetId) {
         target.classList.add('active');
     }
     const navBtn = document.getElementById('nav-' + targetId);
-    if (navBtn) navBtn.classList.add('active');
+    if (navBtn) {
+        navBtn.classList.add('active');
+        updateNavIndicator(navBtn);
+    }
 
     // Scroll to top smoothly
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+// Keep the indicator aligned on load and on resize
+window.addEventListener('load', () => {
+    const activeBtn = document.querySelector('.nav-btn.active') || document.getElementById('nav-home');
+    updateNavIndicator(activeBtn);
+});
+window.addEventListener('resize', () => {
+    const activeBtn = document.querySelector('.nav-btn.active');
+    updateNavIndicator(activeBtn);
+});
 
 // ─── 5. Envelope Logic ──────────────────────────────────
 const envelopeBtn = document.getElementById('envelope-btn');
@@ -270,7 +291,7 @@ if (songAudio && vinyl) {
 
 // ─── 10. Live "Together Since" Love Counter ──────────────
 // Edit the date below (YYYY, MonthIndex[0-11], Day) to match your story.
-const togetherSinceDate = new Date(2024, 2, 14); // March 14, 2024
+const togetherSinceDate = new Date(2024, 10, 11); // November 11, 2024
 
 function updateLoveCounter() {
     const daysEl = document.getElementById('count-days');
@@ -364,5 +385,69 @@ function revealLetterParagraphs() {
     }
     paragraphs.forEach((p, index) => {
         setTimeout(() => p.classList.add('revealed'), index * 220);
+    });
+}
+
+// ─── 14. Photo Lightbox ───────────────────────────────────
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+let lightboxPhotos = [];
+let lightboxIndex = 0;
+
+function initLightbox() {
+    if (!lightbox || !lightboxImg) return;
+    const imgs = document.querySelectorAll('#photos .media-card img');
+    const seen = new Set();
+    lightboxPhotos = [];
+    imgs.forEach(img => {
+        if (!seen.has(img.src)) {
+            seen.add(img.src);
+            lightboxPhotos.push(img.src);
+        }
+        img.addEventListener('click', () => openLightbox(img.src));
+    });
+
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-prev').addEventListener('click', () => shiftLightbox(-1));
+    document.getElementById('lightbox-next').addEventListener('click', () => shiftLightbox(1));
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (lightbox.classList.contains('hidden')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') shiftLightbox(-1);
+        if (e.key === 'ArrowRight') shiftLightbox(1);
+    });
+}
+
+function openLightbox(src) {
+    lightboxIndex = lightboxPhotos.indexOf(src);
+    if (lightboxIndex === -1) lightboxIndex = 0;
+    lightboxImg.src = lightboxPhotos[lightboxIndex];
+    lightbox.classList.remove('hidden');
+}
+
+function closeLightbox() {
+    lightbox.classList.add('hidden');
+}
+
+function shiftLightbox(offset) {
+    if (lightboxPhotos.length === 0) return;
+    lightboxIndex = (lightboxIndex + offset + lightboxPhotos.length) % lightboxPhotos.length;
+    lightboxImg.src = lightboxPhotos[lightboxIndex];
+}
+
+initLightbox();
+
+// ─── 15. Footer heart row – little easter egg ─────────────
+const footerHearts = document.getElementById('footer-hearts');
+if (footerHearts) {
+    footerHearts.addEventListener('click', () => {
+        const rect = footerHearts.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        spawnRipple(cx, cy);
+        burstConfetti(cx, cy, 26);
     });
 }
