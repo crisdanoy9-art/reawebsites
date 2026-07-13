@@ -440,7 +440,7 @@ function shiftLightbox(offset) {
 
 initLightbox();
 
-// ─── 15. Footer heart row – little easter egg ─────────────
+
 const footerHearts = document.getElementById('footer-hearts');
 if (footerHearts) {
     footerHearts.addEventListener('click', () => {
