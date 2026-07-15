@@ -157,6 +157,9 @@ btnYes.addEventListener('click', () => {
         gateScreen.classList.add('hidden');
         mainContent.classList.remove('hidden');
     }, 500);
+
+    // Try to start the ambient background music now that we have a real click (user gesture)
+    startBgMusicIfEnabled();
 });
 
 // ─── 4. Navigation ──────────────────────────────────────
@@ -376,6 +379,133 @@ if (loveNoteBtn && loveNoteModal && loveNoteText) {
     });
 }
 
+// ─── 17. Scratch-to-Reveal Secret Note ────────────────────
+function initScratchCard() {
+    const card = document.getElementById('scratch-card');
+    const canvas = document.getElementById('scratch-canvas');
+    if (!card || !canvas) return;
+
+    const ctx = canvas.getContext('2d');
+
+    function sizeCanvas() {
+        canvas.width = card.clientWidth;
+        canvas.height = card.clientHeight;
+        ctx.fillStyle = '#E3A857';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = '600 15px Poppins, sans-serif';
+        ctx.fillStyle = 'rgba(255,255,255,0.9)';
+        ctx.textAlign = 'center';
+    }
+    sizeCanvas();
+    window.addEventListener('resize', sizeCanvas);
+
+    ctx.globalCompositeOperation = 'destination-out';
+
+    let isScratching = false;
+    let scratchedPixels = 0;
+    const checkThreshold = 45; // % scratched before auto-reveal
+
+    function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const point = e.touches ? e.touches[0] : e;
+        return { x: point.clientX - rect.left, y: point.clientY - rect.top };
+    }
+
+    function scratchAt(x, y) {
+        ctx.beginPath();
+        ctx.arc(x, y, 22, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    function revealCard() {
+        card.classList.add('revealed');
+    }
+
+    function estimateScratchedPercent() {
+        // Sample a coarse grid instead of every pixel, for performance
+        const { width, height } = canvas;
+        if (!width || !height) return 0;
+        const data = ctx.getImageData(0, 0, width, height).data;
+        let cleared = 0;
+        let total = 0;
+        const step = 8;
+        for (let y = 0; y < height; y += step) {
+            for (let x = 0; x < width; x += step) {
+                total++;
+                const alpha = data[(y * width + x) * 4 + 3];
+                if (alpha < 10) cleared++;
+            }
+        }
+        return total ? (cleared / total) * 100 : 0;
+    }
+
+    function handleMove(e) {
+        if (!isScratching) return;
+        e.preventDefault();
+        const { x, y } = getPos(e);
+        scratchAt(x, y);
+        scratchedPixels++;
+        if (scratchedPixels % 6 === 0 && estimateScratchedPercent() > checkThreshold) {
+            revealCard();
+        }
+    }
+
+    canvas.addEventListener('mousedown', (e) => { isScratching = true; handleMove(e); });
+    canvas.addEventListener('mousemove', handleMove);
+    window.addEventListener('mouseup', () => { isScratching = false; });
+
+    canvas.addEventListener('touchstart', (e) => { isScratching = true; handleMove(e); }, { passive: false });
+    canvas.addEventListener('touchmove', handleMove, { passive: false });
+    window.addEventListener('touchend', () => { isScratching = false; });
+}
+initScratchCard();
+
+// ─── 18. Ambient background music toggle ─────────────────
+const bgMusic = document.getElementById('bg-music');
+const bgMusicToggle = document.getElementById('bg-music-toggle');
+const BG_MUSIC_KEY = 'loveSiteBgMusicEnabled';
+
+function setBgMusicIcon(isPlaying) {
+    if (!bgMusicToggle) return;
+    bgMusicToggle.innerHTML = isPlaying
+        ? '<i class="fas fa-volume-up"></i>'
+        : '<i class="fas fa-volume-mute"></i>';
+    bgMusicToggle.classList.toggle('playing', isPlaying);
+}
+
+function startBgMusicIfEnabled() {
+    if (!bgMusic) return;
+    const enabled = localStorage.getItem(BG_MUSIC_KEY);
+    if (enabled === 'off') {
+        setBgMusicIcon(false);
+        return;
+    }
+    bgMusic.volume = 0.35;
+    bgMusic.play().then(() => {
+        setBgMusicIcon(true);
+        localStorage.setItem(BG_MUSIC_KEY, 'on');
+    }).catch(() => {
+        // Autoplay blocked — she can still tap the button manually
+        setBgMusicIcon(false);
+    });
+}
+
+if (bgMusicToggle && bgMusic) {
+    bgMusicToggle.addEventListener('click', () => {
+        if (bgMusic.paused) {
+            bgMusic.volume = 0.35;
+            bgMusic.play().then(() => {
+                setBgMusicIcon(true);
+                localStorage.setItem(BG_MUSIC_KEY, 'on');
+            }).catch(() => {});
+        } else {
+            bgMusic.pause();
+            setBgMusicIcon(false);
+            localStorage.setItem(BG_MUSIC_KEY, 'off');
+        }
+    });
+}
+
 // ─── 13. Staggered reveal for the love letter paragraphs ─
 function revealLetterParagraphs() {
     const paragraphs = document.querySelectorAll('#opened-letter p, #opened-letter h3');
@@ -440,7 +570,7 @@ function shiftLightbox(offset) {
 
 initLightbox();
 
-
+// ─── 15. Footer heart row – little easter egg ─────────────
 const footerHearts = document.getElementById('footer-hearts');
 if (footerHearts) {
     footerHearts.addEventListener('click', () => {
