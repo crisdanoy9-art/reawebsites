@@ -460,6 +460,41 @@ function initScratchCard() {
 }
 initScratchCard();
 
+// ─── 19. Bucket List – "Our Future" checklist ─────────────
+function initBucketList() {
+    const list = document.getElementById('bucket-list');
+    if (!list) return;
+    const checkboxes = list.querySelectorAll('input[type="checkbox"]');
+    const progressBar = document.getElementById('bucket-progress-bar');
+    const progressText = document.getElementById('bucket-progress-text');
+    const STORAGE_PREFIX = 'loveSiteBucket_';
+
+    function updateProgress(celebrate) {
+        const total = checkboxes.length;
+        const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+        const percent = total ? Math.round((checked / total) * 100) : 0;
+        if (progressBar) progressBar.style.width = percent + '%';
+        if (progressText) progressText.textContent = percent;
+
+        if (celebrate && percent === 100) {
+            const rect = list.getBoundingClientRect();
+            burstConfetti(rect.left + rect.width / 2, rect.top + 20, 34);
+        }
+    }
+
+    checkboxes.forEach(cb => {
+        const key = STORAGE_PREFIX + cb.dataset.key;
+        cb.checked = localStorage.getItem(key) === 'true';
+        cb.addEventListener('change', () => {
+            localStorage.setItem(key, cb.checked);
+            updateProgress(true);
+        });
+    });
+
+    updateProgress(false);
+}
+initBucketList();
+
 // ─── 18. Ambient background music toggle ─────────────────
 const bgMusic = document.getElementById('bg-music');
 const bgMusicToggle = document.getElementById('bg-music-toggle');
