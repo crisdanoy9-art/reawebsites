@@ -94,6 +94,19 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Scratch-to-Reveal Secret Note -->
+                <div class="scratch-wrap">
+                    <p class="scratch-heading">One More Thing, Just for You 🤫</p>
+                    <div class="scratch-card" id="scratch-card">
+                        <p id="scratch-secret">
+                            I still get a little nervous before I see you — a good kind of nervous, the kind that
+                            means this still matters to me. I love you, mahal ko.
+                        </p>
+                        <canvas id="scratch-canvas"></canvas>
+                        <p class="scratch-hint">Scratch to reveal ✨</p>
+                    </div>
+                </div>
             </section>
 
             <!-- PHOTOS -->
@@ -331,6 +344,14 @@
             <p class="footer-signature">Cris Lawrence &amp; Rea Jean <span id="footer-year"></span></p>
         </footer>
     </div>
+
+    <!-- Ambient Background Music -->
+    <audio id="bg-music" loop preload="none">
+        <source src="music/our-song.mp3" type="audio/mpeg">
+    </audio>
+    <button id="bg-music-toggle" title="Play our song softly in the background">
+        <i class="fas fa-volume-mute"></i>
+    </button>
 
     <!-- Floating Love Note Surprise -->
     <button id="love-note-btn" title="Tap for a little love note">
