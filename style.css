@@ -1202,6 +1202,214 @@ html {
     #love-note-btn { width: 52px; height: 52px; bottom: 18px; right: 18px; }
 }
 
+/* ── Our Story – Timeline ── */
+.timeline {
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto;
+    padding-left: 34px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--gold), var(--rose-deep));
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 34px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -34px;
+    top: 2px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rose), var(--crimson));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    box-shadow: 0 6px 16px rgba(244, 121, 91, 0.4), 0 0 0 4px var(--cream);
+}
+
+.timeline-content {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(227, 168, 87, 0.35);
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    box-shadow: 0 10px 26px rgba(226, 103, 62, 0.14);
+    transition: transform 0.3s var(--ease-soft), box-shadow 0.3s var(--ease-soft);
+}
+
+.timeline-content:hover {
+    transform: translateX(6px);
+    box-shadow: 0 14px 32px rgba(226, 103, 62, 0.22);
+}
+
+.timeline-date {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.timeline-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--rose-deep);
+    margin-bottom: 8px;
+}
+
+.timeline-content p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--plum);
+}
+
+@media (max-width: 600px) {
+    .timeline { padding-left: 28px; }
+    .timeline-dot { left: -28px; width: 26px; height: 26px; font-size: 0.7rem; }
+    .timeline-content { padding: 14px 16px; }
+}
+
+/* ── Our Future – Bucket List ── */
+.bucket-progress-wrap {
+    max-width: 500px;
+    margin: 0 auto 34px;
+    text-align: center;
+}
+
+.bucket-progress {
+    width: 100%;
+    height: 14px;
+    border-radius: 20px;
+    background: rgba(227, 168, 87, 0.2);
+    overflow: hidden;
+    box-shadow: inset 0 2px 6px rgba(74, 42, 29, 0.15);
+}
+
+.bucket-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--rose), var(--gold));
+    border-radius: 20px;
+    transition: width 0.5s var(--ease-soft);
+}
+
+.bucket-progress-label {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--ink);
+    font-weight: 500;
+}
+
+.bucket-progress-label span {
+    color: var(--rose-deep);
+    font-weight: 700;
+}
+
+.bucket-list {
+    list-style: none;
+    max-width: 560px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bucket-list li {
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(227, 168, 87, 0.35);
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 20px rgba(226, 103, 62, 0.12);
+    transition: transform 0.25s var(--ease-soft), box-shadow 0.25s var(--ease-soft);
+}
+
+.bucket-list li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(226, 103, 62, 0.2);
+}
+
+.bucket-list label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: var(--plum);
+}
+
+.bucket-list input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+    position: relative;
+}
+
+.bucket-list input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, var(--rose), var(--crimson));
+    border-color: var(--crimson);
+    transform: scale(1.05);
+}
+
+.bucket-list input[type="checkbox"]:checked::after {
+    content: '✓';
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.bucket-list label:has(input:checked) span {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.bucket-hint {
+    text-align: center;
+    max-width: 560px;
+    margin: 20px auto 0;
+    font-size: 0.78rem;
+    color: #B98A6B;
+    font-weight: 300;
+}
+
+.bucket-hint code {
+    background: rgba(227, 168, 87, 0.15);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+}
+
 /* ── Scratch-to-Reveal Secret Note ── */
 .scratch-wrap {
     max-width: 560px;
