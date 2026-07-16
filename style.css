@@ -20,6 +20,7 @@
     --ink: #4A2E22;
     --shadow-rose: rgba(226, 103, 62, 0.25);
     --ease-soft: cubic-bezier(0.4, 0.2, 0.2, 1);
+    --ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
     --radius-lg: 28px;
     --radius-md: 18px;
     --shadow-lift: 0 16px 34px rgba(255, 184, 140, 0.28);
@@ -88,10 +89,14 @@ html {
     background: rgba(74, 42, 29, 0.85);
     backdrop-filter: blur(8px);
     padding: 30px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s var(--ease-silk), backdrop-filter 0.35s var(--ease-silk);
 }
 
-#lightbox.hidden {
-    display: none;
+#lightbox.open {
+    opacity: 1;
+    pointer-events: all;
 }
 
 #lightbox-img {
@@ -100,8 +105,17 @@ html {
     border-radius: 20px;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
     border: 3px solid var(--gold);
-    animation: fadeSlide 0.35s ease;
+    transform: scale(0.94);
+    transition: transform 0.35s var(--ease-silk);
     object-fit: contain;
+}
+
+#lightbox.open #lightbox-img {
+    transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #lightbox, #lightbox-img { transition: none; }
 }
 
 #lightbox-close,
@@ -172,7 +186,7 @@ html {
         var(--cream) 0%, var(--blush) 55%, var(--rose) 100%);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.5s var(--ease-soft);
+    transition: opacity 0.6s var(--ease-silk);
 }
 
 #transition-overlay.active {
@@ -182,7 +196,7 @@ html {
 #main-content {
     opacity: 0;
     transform: translateY(16px) scale(0.985);
-    transition: opacity 0.7s var(--ease-soft), transform 0.7s var(--ease-soft);
+    transition: opacity 0.8s var(--ease-silk), transform 0.8s var(--ease-silk);
 }
 
 #main-content.revealed {
@@ -207,7 +221,7 @@ html {
     z-index: 1600;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.5s var(--ease-soft), transform 0.5s var(--ease-soft);
+    transition: opacity 0.5s var(--ease-silk), transform 0.5s var(--ease-silk);
 }
 
 #welcome-toast.show {
@@ -671,8 +685,25 @@ html {
 
 /* ── Page Sections ── */
 .page-section {
-    animation: fadeSlide 0.5s ease;
     padding: 20px 0;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.45s var(--ease-silk), transform 0.45s var(--ease-silk);
+}
+
+.page-section.hidden {
+    display: none !important;
+}
+
+.page-section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page-section.leaving {
+    opacity: 0;
+    transform: translateY(-14px);
+    transition: opacity 0.28s var(--ease-silk), transform 0.28s var(--ease-silk);
 }
 
 /* Cascading reveal for whatever is inside the active section — applies everywhere */
@@ -689,6 +720,7 @@ html {
 
 @media (prefers-reduced-motion: reduce) {
     .page-section.active > * { animation: none; }
+    .page-section, .page-section.leaving { transition: none; }
 }
 
 @keyframes fadeSlide {
@@ -1204,10 +1236,14 @@ html {
     padding: 20px;
     background: rgba(74, 42, 29, 0.35);
     backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease-silk);
 }
 
-#love-note-modal.hidden {
-    display: none;
+#love-note-modal.open {
+    opacity: 1;
+    pointer-events: all;
 }
 
 .love-note-card {
@@ -1220,7 +1256,16 @@ html {
     padding: 40px 34px 30px;
     text-align: center;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
-    animation: fadeSlide 0.4s ease;
+    transform: scale(0.92) translateY(10px);
+    transition: transform 0.35s var(--ease-silk);
+}
+
+#love-note-modal.open .love-note-card {
+    transform: scale(1) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #love-note-modal, .love-note-card { transition: none; }
 }
 
 .love-note-card i.fa-quote-left {
