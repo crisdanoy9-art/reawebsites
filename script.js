@@ -205,29 +205,49 @@ function updateNavIndicator(activeBtn) {
 }
 
 function navigate(targetId) {
-    // Hide all sections
-    const sections = document.querySelectorAll('.page-section');
-    sections.forEach(section => {
-        section.classList.add('hidden');
-        section.classList.remove('active');
-    });
-
-    // Deactivate all nav buttons
-    const navButtons = document.querySelectorAll('.nav-btn');
-    navButtons.forEach(btn => {
-        btn.classList.remove('active');
-    });
-
-    // Show target section and activate its button
     const target = document.getElementById(targetId);
-    if (target) {
-        target.classList.remove('hidden');
-        target.classList.add('active');
-    }
+    if (!target) return;
+
+    const current = document.querySelector('.page-section.active');
+    if (current === target) return;
+
+    // Update nav buttons + indicator immediately, so the UI feels responsive
+    const navButtons = document.querySelectorAll('.nav-btn');
+    navButtons.forEach(btn => btn.classList.remove('active'));
     const navBtn = document.getElementById('nav-' + targetId);
     if (navBtn) {
         navBtn.classList.add('active');
         updateNavIndicator(navBtn);
+    }
+
+    const reducedMotion = prefersReducedMotionQuery.matches;
+
+    function showTarget() {
+        target.classList.remove('hidden');
+        // Force a reflow so the browser registers the "before" state
+        // before we flip to "active" and animate toward it.
+        void target.offsetWidth;
+        requestAnimationFrame(() => {
+            target.classList.add('active');
+        });
+    }
+
+    if (current) {
+        if (reducedMotion) {
+            current.classList.remove('active');
+            current.classList.add('hidden');
+            showTarget();
+        } else {
+            current.classList.remove('active');
+            current.classList.add('leaving');
+            setTimeout(() => {
+                current.classList.add('hidden');
+                current.classList.remove('leaving');
+                showTarget();
+            }, 260);
+        }
+    } else {
+        showTarget();
     }
 
     // Scroll to top smoothly
@@ -402,13 +422,13 @@ if (loveNoteBtn && loveNoteModal && loveNoteText) {
     loveNoteBtn.addEventListener('click', () => {
         const note = loveNotes[Math.floor(Math.random() * loveNotes.length)];
         loveNoteText.textContent = note;
-        loveNoteModal.classList.remove('hidden');
+        loveNoteModal.classList.add('open');
     });
     loveNoteClose.addEventListener('click', () => {
-        loveNoteModal.classList.add('hidden');
+        loveNoteModal.classList.remove('open');
     });
     loveNoteModal.addEventListener('click', (e) => {
-        if (e.target === loveNoteModal) loveNoteModal.classList.add('hidden');
+        if (e.target === loveNoteModal) loveNoteModal.classList.remove('open');
     });
 }
 
@@ -612,7 +632,7 @@ function initLightbox() {
         if (e.target === lightbox) closeLightbox();
     });
     document.addEventListener('keydown', (e) => {
-        if (lightbox.classList.contains('hidden')) return;
+        if (!lightbox.classList.contains('open')) return;
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowLeft') shiftLightbox(-1);
         if (e.key === 'ArrowRight') shiftLightbox(1);
@@ -623,11 +643,11 @@ function openLightbox(src) {
     lightboxIndex = lightboxPhotos.indexOf(src);
     if (lightboxIndex === -1) lightboxIndex = 0;
     lightboxImg.src = lightboxPhotos[lightboxIndex];
-    lightbox.classList.remove('hidden');
+    lightbox.classList.add('open');
 }
 
 function closeLightbox() {
-    lightbox.classList.add('hidden');
+    lightbox.classList.remove('open');
 }
 
 function shiftLightbox(offset) {
