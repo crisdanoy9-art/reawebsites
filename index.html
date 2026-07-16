@@ -41,9 +41,11 @@
             <div class="nav-indicator" id="nav-indicator"></div>
             <ul>
                 <li><button onclick="navigate('home')" class="nav-btn active" id="nav-home"><i class="fas fa-heart"></i> <span>Home</span></button></li>
+                <li><button onclick="navigate('story')" class="nav-btn" id="nav-story"><i class="fas fa-book-open"></i> <span>Our Story</span></button></li>
                 <li><button onclick="navigate('photos')" class="nav-btn" id="nav-photos"><i class="fas fa-images"></i> <span>Photos</span></button></li>
                 <li><button onclick="navigate('videos')" class="nav-btn" id="nav-videos"><i class="fas fa-video"></i> <span>Videos</span></button></li>
                 <li><button onclick="navigate('music')" class="nav-btn" id="nav-music"><i class="fas fa-music"></i> <span>Our Song</span></button></li>
+                <li><button onclick="navigate('future')" class="nav-btn" id="nav-future"><i class="fas fa-list-check"></i> <span>Our Future</span></button></li>
                 <li><button onclick="navigate('letter')" class="nav-btn" id="nav-letter"><i class="fas fa-envelope"></i> <span>Love Letter</span></button></li>
             </ul>
         </nav>
@@ -105,6 +107,47 @@
                         </p>
                         <canvas id="scratch-canvas"></canvas>
                         <p class="scratch-hint">Scratch to reveal ✨</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- OUR STORY – Timeline -->
+            <section id="story" class="page-section hidden">
+                <h2 class="title">Our Story So Far</h2>
+                <p class="subtitle">Every chapter, one memory at a time. Edit these to match your real timeline. 📖</p>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><i class="fas fa-star"></i></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">[First Meeting]</span>
+                            <h4>How It All Started</h4>
+                            <p>[Write about the day you two first met or first talked — where, how, what you remember most.]</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><i class="fas fa-heart"></i></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">November 11, 2024</span>
+                            <h4>The Day We Became "Us"</h4>
+                            <p>[Write about the day you two officially became a couple — how you asked, how she said yes.]</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><i class="fas fa-plane"></i></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">[A Trip or Date You Remember]</span>
+                            <h4>A Day We'll Never Forget</h4>
+                            <p>[Write about a specific trip, date, or ordinary day that became a core memory for you both.]</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><i class="fas fa-heart-circle-check"></i></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">Today</span>
+                            <h4>Still Choosing You</h4>
+                            <p>And every day since, I keep choosing you — on the easy days and the hard ones. Here's to everything still ahead of us. 🌹</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -290,6 +333,31 @@
                         where you were, what you were doing, and why this melody will always belong to us. 💕
                     </p>
                 </div>
+            </section>
+
+            <!-- OUR FUTURE – Bucket List -->
+            <section id="future" class="page-section hidden">
+                <h2 class="title">Our Future Together</h2>
+                <p class="subtitle">Little dreams and big ones, all in one list. Check them off as we go. ✅</p>
+
+                <div class="bucket-progress-wrap">
+                    <div class="bucket-progress">
+                        <div class="bucket-progress-bar" id="bucket-progress-bar"></div>
+                    </div>
+                    <p class="bucket-progress-label"><span id="bucket-progress-text">0</span>% of our dreams checked off</p>
+                </div>
+
+                <ul class="bucket-list" id="bucket-list">
+                    <li><label><input type="checkbox" data-key="trip-together"><span>Take a trip somewhere neither of us has been</span></label></li>
+                    <li><label><input type="checkbox" data-key="cook-feast"><span>Cook a whole feast together from scratch</span></label></li>
+                    <li><label><input type="checkbox" data-key="meet-families"><span>Spend a holiday with both our families together</span></label></li>
+                    <li><label><input type="checkbox" data-key="adopt-pet"><span>Adopt a pet together</span></label></li>
+                    <li><label><input type="checkbox" data-key="road-trip"><span>Go on a spontaneous road trip with no real plan</span></label></li>
+                    <li><label><input type="checkbox" data-key="learn-together"><span>Learn a new skill or hobby together</span></label></li>
+                    <li><label><input type="checkbox" data-key="build-home"><span>Build a home that's truly ours</span></label></li>
+                    <li><label><input type="checkbox" data-key="grow-old"><span>Grow old together, still choosing each other</span></label></li>
+                </ul>
+                <p class="bucket-hint">Edit this list in <code>index.html</code> to match your real dreams together — checked items are saved automatically.</p>
             </section>
 
 <!-- LETTER -->
