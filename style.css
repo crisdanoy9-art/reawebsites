@@ -163,6 +163,64 @@ html {
     }
 }
 
+/* ── Smooth Gate → Main transition ── */
+#transition-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1500;
+    background: radial-gradient(circle at var(--tx, 50%) var(--ty, 50%),
+        var(--cream) 0%, var(--blush) 55%, var(--rose) 100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s var(--ease-soft);
+}
+
+#transition-overlay.active {
+    opacity: 1;
+}
+
+#main-content {
+    opacity: 0;
+    transform: translateY(16px) scale(0.985);
+    transition: opacity 0.7s var(--ease-soft), transform 0.7s var(--ease-soft);
+}
+
+#main-content.revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+#welcome-toast {
+    position: fixed;
+    top: 26px;
+    left: 50%;
+    transform: translate(-50%, -14px);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(227, 168, 87, 0.4);
+    border-radius: 40px;
+    padding: 12px 28px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--rose-deep);
+    box-shadow: 0 14px 34px rgba(226, 103, 62, 0.22);
+    z-index: 1600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s var(--ease-soft), transform 0.5s var(--ease-soft);
+}
+
+#welcome-toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #transition-overlay, #main-content, #welcome-toast {
+        transition: none;
+    }
+}
+
 /* ── Preloader ── */
 #preloader {
     position: fixed;
