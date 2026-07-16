@@ -151,16 +151,49 @@ btnYes.addEventListener('click', () => {
     spawnRipple(cx, cy);
     burstConfetti(cx, cy, 26);
 
+    const overlay = document.getElementById('transition-overlay');
+    const reducedMotion = prefersReducedMotionQuery.matches;
+
     gateScreen.style.opacity = '0';
     gateScreen.style.visibility = 'hidden';
+
+    if (overlay && !reducedMotion) {
+        overlay.style.setProperty('--tx', cx + 'px');
+        overlay.style.setProperty('--ty', cy + 'px');
+        overlay.classList.add('active');
+    }
+
+    const swapDelay = reducedMotion ? 100 : 480;
+
     setTimeout(() => {
         gateScreen.classList.add('hidden');
         mainContent.classList.remove('hidden');
-    }, 500);
+
+        requestAnimationFrame(() => {
+            mainContent.classList.add('revealed');
+        });
+
+        if (overlay) {
+            setTimeout(() => overlay.classList.remove('active'), reducedMotion ? 0 : 80);
+        }
+
+        showWelcomeToast();
+    }, swapDelay);
 
     // Try to start the ambient background music now that we have a real click (user gesture)
     startBgMusicIfEnabled();
 });
+
+function showWelcomeToast() {
+    const toast = document.getElementById('welcome-toast');
+    if (!toast) return;
+    toast.classList.remove('hidden');
+    requestAnimationFrame(() => toast.classList.add('show'));
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.classList.add('hidden'), 500);
+    }, 3200);
+}
 
 // ─── 4. Navigation ──────────────────────────────────────
 function updateNavIndicator(activeBtn) {
