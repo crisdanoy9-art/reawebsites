@@ -548,6 +548,73 @@ function initBucketList() {
 }
 initBucketList();
 
+// ─── 20. Scroll-triggered reveal for timeline & bucket-list items ─
+function initScrollReveal() {
+    const items = document.querySelectorAll('.timeline-item, .bucket-list li');
+    if (!items.length) return;
+
+    items.forEach(item => item.classList.add('scroll-reveal'));
+
+    if (prefersReducedMotionQuery.matches || !('IntersectionObserver' in window)) {
+        items.forEach(item => item.classList.add('revealed'));
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                setTimeout(() => el.classList.add('revealed'), i * 60);
+                observer.unobserve(el);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    items.forEach(item => observer.observe(item));
+}
+initScrollReveal();
+// Re-run whenever a page becomes visible, since newly-shown items need observing
+const originalNavigate = navigate;
+navigate = function (targetId) {
+    originalNavigate(targetId);
+    setTimeout(initScrollReveal, 50);
+};
+
+// ─── 21. Ripple micro-interaction for primary buttons ─────
+function attachRipple(selector) {
+    document.querySelectorAll(selector).forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            if (prefersReducedMotionQuery.matches) return;
+            const rect = btn.getBoundingClientRect();
+            const ripple = document.createElement('span');
+            ripple.className = 'btn-ripple';
+            const size = Math.max(rect.width, rect.height) * 1.4;
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+            btn.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 650);
+        });
+    });
+}
+attachRipple('#btn-yes, #btn-no, #envelope-btn, #love-note-close, #bg-music-toggle, #love-note-btn');
+
+// ─── 22. Blur-up fade-in for photo/video card images ──────
+function initImageFadeIn() {
+    document.querySelectorAll('.photo-marquee .media-card img').forEach(img => {
+        if (img.complete) {
+            img.classList.add('img-loaded');
+            return;
+        }
+        img.classList.add('img-loading');
+        img.addEventListener('load', () => {
+            img.classList.remove('img-loading');
+            img.classList.add('img-loaded');
+        });
+    });
+}
+initImageFadeIn();
+
 // ─── 18. Ambient background music toggle ─────────────────
 const bgMusic = document.getElementById('bg-music');
 const bgMusicToggle = document.getElementById('bg-music-toggle');
