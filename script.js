@@ -356,44 +356,6 @@ function updateLoveCounter() {
 updateLoveCounter();
 setInterval(updateLoveCounter, 1000);
 
-// ─── 10b. Countdown to the next special day ──────────────
-// Edit these two to count down to whatever's next — an anniversary, a birthday, a trip.
-const nextEventName = 'our next anniversary';
-const nextEventMonth = 10; // November (0-indexed: Jan=0 ... Nov=10)
-const nextEventDay = 11;
-
-function getNextOccurrence(month, day) {
-    const now = new Date();
-    let next = new Date(now.getFullYear(), month, day, 0, 0, 0);
-    if (next <= now) {
-        next = new Date(now.getFullYear() + 1, month, day, 0, 0, 0);
-    }
-    return next;
-}
-
-function updateNextCountdown() {
-    const daysEl = document.getElementById('next-days');
-    if (!daysEl) return;
-
-    const nameEl = document.getElementById('next-event-name');
-    if (nameEl) nameEl.textContent = nextEventName;
-
-    const target = getNextOccurrence(nextEventMonth, nextEventDay);
-    const now = new Date();
-    let diff = target - now;
-    if (diff < 0) diff = 0;
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const mins = Math.floor((diff / (1000 * 60)) % 60);
-
-    daysEl.textContent = days;
-    document.getElementById('next-hours').textContent = hours;
-    document.getElementById('next-mins').textContent = mins;
-}
-updateNextCountdown();
-setInterval(updateNextCountdown, 30000);
-
 // ─── 11. Typewriter effect for the Home subtitle ─────────
 function typewriteHomeSubtitle() {
     const subtitle = document.getElementById('home-subtitle');
