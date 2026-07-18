@@ -40,7 +40,15 @@
     </div>
 
     <!-- Smooth transition overlay (covers the gate → main-content swap) -->
-    <div id="transition-overlay"></div>
+    <div id="transition-overlay">
+        <span class="bloom-flower bloom-center">🌹</span>
+        <span class="bloom-flower" style="--fx:-160px; --fy:-70px; --delay:0.03s;">🌸</span>
+        <span class="bloom-flower" style="--fx:150px; --fy:-100px; --delay:0.07s;">🌺</span>
+        <span class="bloom-flower" style="--fx:-120px; --fy:120px; --delay:0.05s;">🌷</span>
+        <span class="bloom-flower" style="--fx:170px; --fy:90px; --delay:0.1s;">🌹</span>
+        <span class="bloom-flower" style="--fx:0px; --fy:-160px; --delay:0.09s;">🌼</span>
+        <span class="bloom-flower" style="--fx:0px; --fy:160px; --delay:0.06s;">🌸</span>
+    </div>
 
     <!-- Welcome toast, shown right after entering the main site -->
     <div id="welcome-toast" class="hidden">Welcome to our little world 💕</div>
@@ -74,17 +82,6 @@
                         <div class="counter-item"><span id="count-secs">0</span><label>Seconds</label></div>
                     </div>
                     <p class="counter-hint">...and counting every heartbeat since. Edit <code>together-since</code>'s date in script.js to match your story.</p>
-                </div>
-
-                <!-- Countdown to the next special day -->
-                <div class="next-countdown ornate" id="next-countdown">
-                    <p class="countdown-label"><i class="fas fa-gift"></i> Counting down to <span id="next-event-name">our next anniversary</span></p>
-                    <div class="countdown-grid">
-                        <div class="countdown-item"><span id="next-days">0</span><label>Days</label></div>
-                        <div class="countdown-item"><span id="next-hours">0</span><label>Hours</label></div>
-                        <div class="countdown-item"><span id="next-mins">0</span><label>Minutes</label></div>
-                    </div>
-                    <p class="counter-hint">Edit <code>nextEventDate</code> and <code>nextEventName</code> in script.js to count down to any date you want.</p>
                 </div>
 
                 <!-- Reasons I Love You – flip cards -->
