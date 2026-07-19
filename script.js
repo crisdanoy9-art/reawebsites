@@ -41,6 +41,26 @@ function createPetals() {
 }
 createPetals();
 
+// ─── 1e. Soft bokeh light particles (ambient depth) ───────
+function createBokeh() {
+    const container = document.getElementById('hearts-container');
+    if (!container) return;
+    const colors = ['rgba(255,184,140,0.35)', 'rgba(227,168,87,0.3)', 'rgba(255,201,159,0.3)'];
+    for (let i = 0; i < 10; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'bokeh-dot';
+        const size = Math.random() * 90 + 50;
+        dot.style.width = size + 'px';
+        dot.style.height = size + 'px';
+        dot.style.left = Math.random() * 100 + '%';
+        dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+        dot.style.animationDuration = (Math.random() * 18 + 18) + 's';
+        dot.style.animationDelay = (Math.random() * 18) + 's';
+        container.appendChild(dot);
+    }
+}
+createBokeh();
+
 // ─── 1c. Shared burst helpers (confetti + ripple + click hearts) ──
 const prefersReducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
